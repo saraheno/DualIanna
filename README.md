@@ -1,3 +1,19 @@
+
+git clone https://github.com/saraheno/DualIanna
+git clone https://github.com/saraheno/k4RecCalorimeter
+mkdir install
+mkdir DualtTestBeam/build
+mkdir k4RecCalorimeter/build
+cmake --build DualtTestBeam/build
+cmake --install DualtTestBeam/build
+cmake --build k4RecCalorimeter/build
+cmake --install k4RecCalorimeter/build
+cd k4RecCalorimeter
+k4_local_repo $PWD/../install
+cd ..
+source install/bin/thisDualTestBeam.sh
+
+
 This is a simulation of a dual readout crystal calorimeter (currently the code is work in progress).
 See https://iopscience.iop.org/article/10.1088/1748-0221/15/11/P11005 for the concept.
 
