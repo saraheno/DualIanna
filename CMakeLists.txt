@@ -15,7 +15,7 @@
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 
-set( PackageName DualTestBeam )
+set( PackageName DualIanna )
 #---------------------------
 
 project(${PackageName})
