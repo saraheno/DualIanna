@@ -1,6 +1,25 @@
+
+First time only
+
+git clone https://github.com/UVa-Calvision/dd4hep-rivanna.git
+
+cd dd4hep-rivanna/
+
+cd container/
+
+source ./build.sh
+
+conda deactivate
+
+After that
+
+apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif
+
+source /cvmfs/sw.hsf.org/key4hep/setup.sh
+
 git clone git@github.com:saraheno/DualIanna.git
 
-git clone git@github.com:saraheno/k4RecCalorimeter
+git clone -b dual_crys_calo_digi git@github.com:saraheno/k4RecCalorimeter.git
 
 cd k4RecCalorimeter
 
@@ -31,6 +50,8 @@ k4_local_repo $PWD/../install
 cd .../DualIanna
 
 source ./install/bin/thisDualTestBeam.sh
+
+
 
 
 This is a simulation of a dual readout crystal calorimeter (currently the code is work in progress).
