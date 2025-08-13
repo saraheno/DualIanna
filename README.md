@@ -1,31 +1,36 @@
-
-source /cvmfs/sw.hsf.org/key4hep/setup.sh
-
 git clone git@github.com:saraheno/DualIanna.git
 
-git clone git@github.com:saraheno/k4RecCalorimeter.git
-
-mkdir install
-
-mkdir DualIanna/build
-
-mkdir k4RecCalorimeter/build
-
-cmake --build DualIanna/build
-
-cmake --install DualIanna/build
-
-cmake --build k4RecCalorimeter/build
-
-cmake --install k4RecCalorimeter/build
+git clone git@github.com:saraheno/k4RecCalorimeter
 
 cd k4RecCalorimeter
 
+mkdir build install
+
+cd build 
+
+cmake -DCMAKE_INSTALL_PREFIX=../install ..
+
+make -j8 install 
+
+wait .... 
+
+cd ../../DualIanna
+
+mkdir build install
+
+cd build
+
+cmake -DDD4HEP_USE_GEANT4=ON -DBoost_NO_BOOST_CMAKE=ON -DDD4HEP_USE_LCIO=ON -DBUILD_TESTING=ON -DROOT_DIR=$ROOTSYS -D CMAKE_BUILD_TYPE=Release -DDD4HEP_BUILD_EXAMPLES=ON -DCMAKE_INSTALL_PREFIX=../install ..
+
+make -j8 install
+
+cd ../../k4RecCalorimeter
+
 k4_local_repo $PWD/../install
 
-cd ..
+cd .../DualIanna
 
-source install/bin/thisDualTestBeam.sh
+source ./install/bin/thisDualTestBeam.sh
 
 
 This is a simulation of a dual readout crystal calorimeter (currently the code is work in progress).
