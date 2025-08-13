@@ -3,7 +3,7 @@ source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
 git clone git@github.com:saraheno/DualIanna.git
 
-git clone git@github.com:saraheno/DualIanna.gitk4RecCalorimeter
+git clone git@github.com:saraheno/k4RecCalorimeter.git
 
 mkdir install
 
