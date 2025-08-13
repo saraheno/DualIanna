@@ -216,7 +216,7 @@ void Resolution(int num_evtsmax, const char* einputfilename, const char* piinput
   result = gSystem->Load("libDDG4IO");
   result = gSystem->Load("libDDEvePlugins");
   result = gSystem->Load("libDDEvePlugins");
-  result = gSystem->Load("libDualTestBeam");
+  result = gSystem->Load("libDualIanna");
   result = gSystem->Load("libDDG4Plugins");
 
   int ihaha,num_evt;
