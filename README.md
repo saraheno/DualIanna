@@ -1,17 +1,19 @@
 
-git clone https://github.com/saraheno/DualIanna
+source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
-git clone https://github.com/saraheno/k4RecCalorimeter
+git clone git@github.com:saraheno/DualIanna.git
+
+git clone git@github.com:saraheno/DualIanna.gitk4RecCalorimeter
 
 mkdir install
 
-mkdir DualtTestBeam/build
+mkdir DualIanna/build
 
 mkdir k4RecCalorimeter/build
 
-cmake --build DualtTestBeam/build
+cmake --build DualIanna/build
 
-cmake --install DualtTestBeam/build
+cmake --install DualIanna/build
 
 cmake --build k4RecCalorimeter/build
 
