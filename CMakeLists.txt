@@ -96,7 +96,7 @@ dd4hep_add_plugin ( DualIanna
 
 dd4hep_instantiate_package(${PackageName})
 target_include_directories(DualIanna PUBLIC include)
-target_link_options(DualTestIanna PRIVATE -L${Geant4_DIR}/..)
+target_link_options(DualIanna PRIVATE -L${Geant4_DIR}/..)
 #message (STATUS "CLHEP: ${CLHEP}")
 #
 #
