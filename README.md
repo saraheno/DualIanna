@@ -9,9 +9,12 @@ cd container/
 
 source ./build.sh
 
-conda deactivate
+
 
 After that
+
+
+conda deactivate
 
 apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif
 
