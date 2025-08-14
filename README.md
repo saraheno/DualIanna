@@ -50,9 +50,9 @@ cd ../../k4RecCalorimeter
 
 k4_local_repo $PWD/../install
 
-cd .../DualIanna
+cd ../DualIanna
 
-source ./install/bin/thisDualTestBeam.sh
+source ./install/bin/thisDualIanna.sh
 
 
 
