@@ -2,9 +2,11 @@ from array import *
 import argparse
 
 
-# python massjobs_s2.py -g1 DualTestBeam -g2 FSCEPonly -doecal 1 -dohcal 1 -hcaltype 0 -doedge 1 -gendete 3 -gendeth 3 -dodual 0 -NNN 2 -dotwocalcor 1
+# python massjobs_s2.py -g1 DualTestBeam -g2 FSCEPonly -doecal 1 -dohcal 1 -hcaltype 0 -doedge 1 -gendete 3 -gendeth 3 -dodual 0 -NNN 2 -dotwocalcor 1-c /data/users/eno/CalVision/dd4hep/Ianna/DualIanna/compact/jobs/ -w /data/users/eno/CalVision/dd4hep/Ianna/DualIanna/compact/output/
 
 argParser = argparse.ArgumentParser()
+argParser.add_argument("-w", "--write", help="where to write")
+argParser.add_argument("-c", "--cdarea", help="where to run (compact area)")
 argParser.add_argument("-g1", "--geometry1", help="main geometry ")
 argParser.add_argument("-g2", "--geometry2", help="hcal calibration geometry ")
 argParser.add_argument("-doecal","--doecal", help="0 no 1 yes")
@@ -24,11 +26,8 @@ print("args.name=%s" % args.geometry1)
 print("args.name=%s" % args.geometry2)
 
 
-
-outputarea="/data/users/eno/CalVision/dd4hep/stuff4stuff/DualTestBeam/compact/output/"
-hostarea="/data/users/eno/CalVision/dd4hep/stuff4stuff/DualTestBeam/compact/jobs/"
-
-
+outputarea=args.write
+hostarea=args.cdarea
 
 
 #nenergy=9
@@ -44,7 +43,7 @@ while (i<nenergy):
     shfile = open(hostarea+name+str(energies[i])+'_GeV.sh',"w")
 
     shfile.write('#!/bin/bash'+'\n')
-    shfile.write('cd /data/users/eno/CalVision/dd4hep/DD4hep/examples/DualTestBeam/compact/'+'\n')
+    shfile.write('cd '+hostarea+'\n')
     shfile.write('START_TIME=`/bin/date`'+'\n')
     shfile.write('echo "started at $START_TIME"'+'\n')
     shfile.write('echo "started at $START_TIME on ${HOSTNAME}"'+'\n')
