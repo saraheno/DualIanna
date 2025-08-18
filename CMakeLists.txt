@@ -20,7 +20,7 @@ set( PackageName DualIanna )
 
 project(${PackageName})
 
-
+find_package(k4RecCalorimeter)
 
 
 IF(NOT TARGET DD4hep::DDCore)

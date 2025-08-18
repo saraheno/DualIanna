@@ -10,7 +10,7 @@
 // Author     : M.Frank
 //
 //==========================================================================
-#include <k4RecCalorimeter/RecCalorimeter/src/components/DualCrysCalorimeterHit.h>
+#include "k4RecCalorimeter/DualCrysCalorimeterHit.h"
 #include <TFile.h>
 #include <TBranch.h>
 #include <TTree.h>

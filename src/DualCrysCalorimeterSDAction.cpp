@@ -16,7 +16,7 @@
 // Framework include files
 #include <algorithm>
 #include <CLHEP/Units/PhysicalConstants.h>
-#include "k4RecCalorimeter/RecCalorimeter/src/components/DualCrysCalorimeterHit.h"
+#include "k4RecCalorimeter/DualCrysCalorimeterHit.h"
 #include "DDG4/EventParameters.h"
 #include "DDG4/Geant4SensDetAction.inl"
 #include "DDG4/Factories.h"
