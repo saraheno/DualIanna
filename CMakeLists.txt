@@ -95,7 +95,8 @@ dd4hep_add_plugin ( DualIanna
 
 
 dd4hep_instantiate_package(${PackageName})
-target_include_directories(DualIanna PUBLIC include  k4RecCalorimeter::k4RecCalorimeter)
+target_include_directories(DualIanna PUBLIC include)
+target_link_libraries(DualIanna PUBLIC k4RecCalorimeter::k4RecCalorimeterPlugins)
 target_link_options(DualIanna PRIVATE -L${Geant4_DIR}/..)
 #message (STATUS "CLHEP: ${CLHEP}")
 #
