@@ -1,5 +1,5 @@
 
-First time only
+#First time only
 
 git clone https://github.com/UVa-Calvision/dd4hep-rivanna.git
 
@@ -10,8 +10,7 @@ cd container/
 source ./build.sh
 
 
-
-After that
+#Always
 
 
 conda deactivate
@@ -19,6 +18,8 @@ conda deactivate
 apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif
 
 source /cvmfs/sw.hsf.org/key4hep/setup.sh
+
+# again first time only
 
 git clone git@github.com:saraheno/DualIanna.git
 
@@ -34,7 +35,6 @@ cmake -DCMAKE_INSTALL_PREFIX=../install ..
 
 make -j8 install 
 
-wait .... 
 
 cd ../../DualIanna
 
@@ -58,6 +58,7 @@ source ./install/bin/thisDualIanna.sh
 
 
 
+# old documentation
 
 This is a simulation of a dual readout crystal calorimeter (currently the code is work in progress).
 See https://iopscience.iop.org/article/10.1088/1748-0221/15/11/P11005 for the concept.
