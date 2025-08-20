@@ -13,7 +13,7 @@ source ./build.sh
 # Always
 
 
-conda deactivate
+conda deactivate  (if you are on the U. Maryland cluster)
 
 apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif
 
