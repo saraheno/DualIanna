@@ -19,7 +19,37 @@ apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif
 
 source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
-# again first time only
+
+# again only the first time
+
+git clone https://github.com/saraheno/DualIanna
+
+git clone https://github.com/saraheno/k4RecCalorimeter
+
+mkdir install
+
+mkdir DualIanna/build
+
+mkdir k4RecCalorimeter/build
+
+cmake --build DualIanna/build
+
+cmake --install DualIanna/build
+
+cmake --build k4RecCalorimeter/build
+
+cmake --install k4RecCalorimeter/build
+
+cd k4RecCalorimeter
+
+k4_local_repo $PWD/../install
+
+cd ..
+
+source install/bin/thisDualIanna.sh
+
+
+# just saving this.  ignore
 
 git clone git@github.com:saraheno/DualIanna.git
 
