@@ -1,5 +1,5 @@
 
-#First time only
+# First time only
 
 git clone https://github.com/UVa-Calvision/dd4hep-rivanna.git
 
@@ -10,7 +10,7 @@ cd container/
 source ./build.sh
 
 
-#Always
+# Always
 
 
 conda deactivate
