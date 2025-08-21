@@ -22,6 +22,7 @@ project(${PackageName})
 
 find_package(k4RecCalorimeter)
 
+SET(CMAKE_INSTALL_LIBDIR lib)
 
 IF(NOT TARGET DD4hep::DDCore)
   find_package ( DD4hep REQUIRED )
