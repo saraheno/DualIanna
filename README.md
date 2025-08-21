@@ -22,21 +22,19 @@ source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
 # again only the first time
 
-git clone https://github.com/saraheno/DualIanna
+export NUMBER_OF_JOBS=16
 
-git clone https://github.com/saraheno/k4RecCalorimeter
+source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
-mkdir install
+mkdir -p install
 
-mkdir DualIanna/build
+git clone -b patch-1 https://github.com/andresailer/k4RecCalorimeter.git || echo "Already exists"
 
-mkdir k4RecCalorimeter/build
+mkdir -p k4RecCalorimeter/build
 
-cmake --build DualIanna/build
+cmake -S k4RecCalorimeter/ -B k4RecCalorimeter/build/ -D CMAKE_INSTALL_PREFIX=$PWD/install
 
-cmake --install DualIanna/build
-
-cmake --build k4RecCalorimeter/build
+cmake --build k4RecCalorimeter/build --parallel ${NUMBER_OF_JOBS}
 
 cmake --install k4RecCalorimeter/build
 
@@ -46,8 +44,17 @@ k4_local_repo $PWD/../install
 
 cd ..
 
-source install/bin/thisDualIanna.sh
+git clone https://github.com/saraheno/DualIanna.git || echo "Already exists"
 
+mkdir -p DualIanna/build
+
+cmake -S DualIanna -B DualIanna/build -D CMAKE_INSTALL_PREFIX=$PWD/install -D CMAKE_PREFIX_PATH=$PWD/install
+
+cmake --build DualIanna/build --parallel ${NUMBER_OF_JOBS}
+
+cmake --install DualIanna/build
+
+source install/bin/thisDualIanna.sh
 
 # just saving this.  ignore
 
