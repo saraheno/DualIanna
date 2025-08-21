@@ -44,7 +44,7 @@ k4_local_repo $PWD/../install
 
 cd ..
 
-git clone https://github.com/saraheno/DualIanna.git || echo "Already exists"
+git clone git@github.com:saraheno/DualIanna.git || echo "Already exists"
 
 mkdir -p DualIanna/build
 
