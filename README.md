@@ -53,7 +53,18 @@ cmake --build DualIanna/build --parallel ${NUMBER_OF_JOBS}
 
 cmake --install DualIanna/build
 
+
+# every time
+
 source install/bin/thisDualIanna.sh
+
+# to run
+
+cd DualIanna/compact
+
+k4run digi_dualcrys.py -IOSvc.Input junk.root -IOSvc.Output yuck.root -n 2
+
+maybe --CaloDigitizaerFunc.signalFileName
 
 # just saving this.  ignore
 
