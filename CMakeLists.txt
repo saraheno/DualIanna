@@ -22,6 +22,7 @@ project(${PackageName})
 
 find_package(k4RecCalorimeter)
 
+SET(CMAKE_INSTALL_LIBDIR lib)
 
 IF(NOT TARGET DD4hep::DDCore)
   find_package ( DD4hep REQUIRED )
@@ -102,7 +103,7 @@ target_link_options(DualIanna PRIVATE -L${Geant4_DIR}/..)
 #
 #
 install(TARGETS DualIanna LIBRARY DESTINATION lib)
-install(DIRECTORY include/DualIanna DESTINATION include)
+#install(DIRECTORY include/DualIanna DESTINATION include)
 #
 #---Package installation procedure(s) -----------------------------------------
 install(DIRECTORY data eve scripts DESTINATION ${CMAKE_INSTALL_PREFIX}/examples/DualIanna )
