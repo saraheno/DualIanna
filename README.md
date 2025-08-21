@@ -27,7 +27,7 @@ export NUMBER_OF_JOBS=16
 
 mkdir -p install
 
-git clone -b patch-1 https://github.com/andresailer/k4RecCalorimeter.git || echo "Already exists"
+git clone -b dual_crys_calo_digi git@github.com:saraheno/k4RecCalorimeter.git
 
 mkdir -p k4RecCalorimeter/build
 
