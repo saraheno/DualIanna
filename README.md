@@ -24,7 +24,6 @@ source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
 export NUMBER_OF_JOBS=16
 
-source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
 mkdir -p install
 
