@@ -18,7 +18,7 @@
 #include "DDG4/Factories.h"
 #include "DDG4/Geant4OutputAction.h"
 
-#include "DualCrysCalorimeterHit.h"
+#include "k4RecCalorimeter/DualCrysCalorimeterHit.h"
 
 
 class TFile;
