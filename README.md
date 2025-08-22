@@ -65,7 +65,9 @@ source install/bin/thisDualIanna.sh
 
 cd DualIanna/compact
 
+```
  ddsim --compactFile=DRConly.xml --runType=batch -G --steeringFile SCEPCALsteering.py --outputFile=junk.root --part.userParticleHandler= -G --gun.position="0. 0.*mm -80*cm" --gun.direction "0. 0. 1." --gun.energy "20*GeV" --gun.particle="pi-" -N 1
+```
 
 # to digitize
 
