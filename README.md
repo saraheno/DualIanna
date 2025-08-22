@@ -1,5 +1,5 @@
 
-# First time only
+# First time only (only on UMD cluster)
 
 git clone https://github.com/UVa-Calvision/dd4hep-rivanna.git
 
