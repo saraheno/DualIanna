@@ -47,7 +47,7 @@ git clone git@github.com:saraheno/DualIanna.git || echo "Already exists"
 
 mkdir -p DualIanna/build
 
-cmake -S DualIanna -B DualIanna/build -D CMAKE_INSTALL_PREFIX=$PWD/install -D CMAKE_PREFIX_PATH=$PWD/install -DDD4HEP_USE_GEANT4=ON -DBoost_NO_BOOST_CMAKE=ON -DDD4HEP_USE_LCIO=ON  -DROOT_DIR=$ROOTSYS -D CMAKE_BUILD_TYPE=Release -DBoost_USE_DEBUG_RUNTIME=OFF
+cmake -S DualIanna -B DualIanna/build -D CMAKE_INSTALL_PREFIX=$PWD/install -D CMAKE_PREFIX_PATH=$PWD/install
 
 cmake --build DualIanna/build --parallel ${NUMBER_OF_JOBS}
 
