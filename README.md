@@ -15,7 +15,7 @@ source ./build.sh
 
 conda deactivate  (if you are on the U. Maryland cluster)
 
-apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif
+apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif  (on UMD cluster)
 
 source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
