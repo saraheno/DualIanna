@@ -93,9 +93,7 @@ dd4hep_add_plugin ( DualIanna
 )
 
 
-find_package(k4RecCalorimeter REQUIRED)
-target_include_directories(DualIanna PRIVATE ${k4RecCalorimeter_INCLUDE_DIRS})
-target_link_libraries(DualIanna PRIVATE k4RecCalorimeter)
+
 
 dd4hep_instantiate_package(${PackageName})
 target_include_directories(DualIanna PUBLIC include)
