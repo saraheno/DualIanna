@@ -51,10 +51,15 @@ if(NOT TARGET Geant4::Interface)
   return()
 endif()
 
+find_file(DCCHheader NAMES DualCrysCalorimeterHit.h
+  # k4RecCalorimeter_DIR is lib/cmake inside k4RecCalorimeter or something
+  PATHS ${k4RecCalorimeter_DIR}/../../../include/k4RecCalorimeter
+)
+
 if (DD4HEP_USE_GEANT4)
   #---------------------------  Plugin library for the simulation framework  ---------
   dd4hep_add_dictionary(G__DualIanna
-    SOURCES ${DD4hep_DIR}/include/ROOT/Warnings.h include/DualCrysCalorimeterHit.h
+    SOURCES ${DD4hep_DIR}/include/ROOT/Warnings.h ${DCCHheader}
     LINKDEF ${DD4hep_DIR}/include/ROOT/LinkDef.h
     OUTPUT  ${LIBRARY_OUTPUT_PATH}
     USES    DD4hep::DDCore DD4hep::DDG4 Geant4::Interface
