@@ -75,7 +75,7 @@ cd DualIanna/compact
 
 cd DualIanna/compact
 
-k4run digi_dualcrys.py -IOSvc.Input junk.root -IOSvc.Output yuck.root -n 2
+k4run digi_dualcrys.py 
 
 maybe --CaloDigitizaerFunc.signalFileName
 
