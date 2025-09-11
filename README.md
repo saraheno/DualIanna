@@ -59,6 +59,7 @@ cmake --install DualIanna/build
 (from the mother area)
 
 source install/bin/thisDualIanna.sh
+export PYTHONPATH=$PWD/install/python:$PYTHONPATH
 
 # to make events
 
