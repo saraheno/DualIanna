@@ -4,18 +4,18 @@ from Configurables import ApplicationMgr
 from Configurables import k4DataSvc
 dataservice = k4DataSvc("EventDataSvc", input="junk.root")
 
-from Configurables import PodioInput
-podioinput = PodioInput("PodioInput",
-    collections = [
-        "SimCaloHits"
-    ],
-    OutputLevel = DEBUG
-)
+from k4FWCore import ApplicationMgr
+from k4FWCore import IOSvc
+
+iosvc = IOSvc("IOSvc")
+iosvc.Input = "junk.root"
+
+iosvc.CollectionNames = ["MCParticles"]
 
 from Configurables import DualCrysCalDigi
 
 digi = DualCrysCalDigi("DualCrystalDigitizer")
-digi.calCollections = "SimCaloHits"
+digi.calCollections = "DRCNoSegment"
 digi.outputCalCollection = "DigitizedCaloHits"
 digi.outputRelCollection = "CaloHitLinks"
 digi.CalThreshold = 0.03  # MeV
