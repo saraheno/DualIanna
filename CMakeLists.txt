@@ -21,6 +21,7 @@ set( PackageName DualIanna )
 project(${PackageName})
 
 find_package(k4RecCalorimeter)
+find_package(EDM4HEP REQUIRED) # implicit: Podio
 
 SET(CMAKE_INSTALL_LIBDIR lib)
 
@@ -62,7 +63,7 @@ if (DD4HEP_USE_GEANT4)
     SOURCES ${DD4hep_DIR}/include/ROOT/Warnings.h ${DCCHheader}
     LINKDEF ${DD4hep_DIR}/include/ROOT/LinkDef.h
     OUTPUT  ${LIBRARY_OUTPUT_PATH}
-    USES    DD4hep::DDCore DD4hep::DDG4 Geant4::Interface
+    USES    DD4hep::DDCore DD4hep::DDG4 Geant4::Interface 
     )
 
 
@@ -93,7 +94,7 @@ dd4hep_configure_output ()
 dd4hep_add_plugin ( DualIanna
     GENERATED G__DualIanna.cxx 
   SOURCES src/*.cpp src/plugins/*.cpp
-  USES    DD4hep::DDCore DD4hep::DDAlign DD4hep::DDCond DD4hep::DDG4
+  USES    DD4hep::DDCore DD4hep::DDAlign DD4hep::DDCond DD4hep::DDG4 EDM4HEP::edm4hep podio::podio podio::podioRootIO
           ROOT::Core ROOT::Geom ROOT::GenVector CLHEP::CLHEP Geant4::Interface
 )
 
@@ -104,7 +105,7 @@ dd4hep_instantiate_package(${PackageName})
 
 #target_include_directories(DualIanna PRIVATE ${k4RecCalorimeter_INCLUDE_DIRS})
 #target_link_libraries(DualIanna PRIVATE k4RecCalorimeter)
-target_include_directories(DualIanna PUBLIC include)
+target_include_directories(DualIanna PUBLIC include )
 target_link_libraries(DualIanna PUBLIC k4RecCalorimeter::k4RecCalorimeterPlugins)
 
 target_link_options(DualIanna PRIVATE -L${Geant4_DIR}/..)
