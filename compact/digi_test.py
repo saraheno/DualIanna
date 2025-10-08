@@ -17,6 +17,10 @@ podioinput = PodioInput("PodioInput",
     OutputLevel = DEBUG
 )
 
+from Configurables import DualCrysSiPMAlgo
+
+sipmAlgo = DualCrysSiPMAlgo("Calvision SiPM Algo")
+
 
 from Configurables import DualCrysCalDigi
 digi = DualCrysCalDigi("DualCrystalDigis")
@@ -49,6 +53,7 @@ ApplicationMgr(
     TopAlg = [
         podioinput,
         digi,
+        sipmAlgo,
         podiooutput
     ],
     EvtSel = 'NONE',

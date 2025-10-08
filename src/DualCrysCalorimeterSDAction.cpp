@@ -70,7 +70,19 @@ namespace dd4hep {  // Namespace for the Geant4 based simulation part of the AID
 		 * \package DualCrysCalorimeterSDAction
 		 *
 		 * @}
-		 */		
+		 */
+
+	  template <> void Geant4SensitiveAction<DualCrysCalorimeterSD>::initialize() {
+	    declareProperty("dialCherC", dialCherC);
+	    declareProperty("dialScintC",dialScintC);
+	    declareProperty("dialCherO", dialCherO);
+	    declareProperty("dialScintO",dialScintO);
+	    declareProperty("betarel", betarel);
+	    declareProperty("printlimitSCE", printlimitSCE);
+	    declareProperty("MAXEVENTSCE", MAXEVENT);
+	  }
+
+	  
 		/// Define collections created by this sensitivie action object
 		template <> void Geant4SensitiveAction<DualCrysCalorimeterSD>::defineCollections()    {
 			m_hitCreationMode = Geant4Sensitive::DETAILED_MODE;
