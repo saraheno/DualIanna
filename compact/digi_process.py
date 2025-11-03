@@ -3,65 +3,70 @@ import ROOT
 import numpy as np 
 from podio import root_io
 
-reader = root_io.Reader('edm4hep_output.root')
+import argparse
+from ROOT import RDataFrame
+
+parser = argparse.ArgumentParser('Process edm4hep digis output to plots')
+parser.add_argument('-f','--file', type=str, default = 'edm4hep_output.root')
+parser.add_argument('-o','--output', type=str, default = 'edm4hep_plots.root')
+
+
+args = parser.parse_args()
+
+
+
+
+reader = root_io.Reader(args.file)
+
+tf = ROOT.TFile(args.output, 'RECREATE')
 
 wfs = []
+xs = None
+ys = None
+evt = np.array([0])
+ix=np.array([0])
+iy=np.array([0])
 print('Reading events')
-evt = 0
+ts = None
+tree =  ROOT.TTree("calvision_sim","digigraphs" )
+xbr = None
+ybr = None
+evtbr = None
+ixbr = None
+iybr = None
 for event in reader.get("events"):
 
-    scintcollection = event.get('CalvisionSiPMScintWaveform')
-    cerenkovcollection = event.get('CalvisionSiPMCerenWaveform')
     totalcollection = event.get('CalvisionSiPMDigiWaveform')
-    print(f'TC Sz: {totalcollection.size()}, CC SZ: {cerenkovcollection.size()}')
-    print(f'SC Sz: {scintcollection.size()}')
-    scintpts = []
-    cerenkovpts = []
-    totalpts = []
-    xs = []
-    dt = 0.2 # sampling time in ns
-    for i in range (0, 1024):
-        scintpts.append(scintcollection.at(0).getAmplitude().at(i))
-        cerenkovpts.append(cerenkovcollection.at(0).getAmplitude().at(i))
-        totalpts.append(totalcollection.at(0).getAmplitude().at(i))
-        xs.append( i*dt)
 
-    xss = np.array(xs)
+    if (evt[0] == 0):
+        ts = totalcollection.at(0)
+        sampling = ts.getInterval()
+        xs = np.array([0.]*1024)
+        for i in range (0,1024):
+            xs[i] = i*sampling
 
-    totalgraph = ROOT.TGraph(1024, xss, np.array(totalpts))
-    totalgraph.SetTitle("Combined Scint. and Cerenkov Signals;ns;Arb. Unit")
-    cerengraph = ROOT.TGraph(1024, xss, np.array(cerenkovpts))
-    cerengraph.SetTitle("Cerenkov Signal;ns;Arb. Unit")
-    scintgraph = ROOT.TGraph(1024, xss, np.array(scintpts))
-    scintgraph.SetTitle("Scintillation Signal;ns;Arb. Unit")
-
-    canvas = ROOT.TCanvas("Digis", "Digis", 1024, 768)
-    canvas.Divide(1,3)
-    canvas.cd(1)
-    totalgraph.Draw()
-    canvas.cd(2)
-    cerengraph.Draw()
-    canvas.cd(3)
-    scintgraph.Draw()
-
-    canvas.SaveAs(f"digi-{evt}.png")
-
-    canvas.Clear()
-    for i in range(1, totalcollection.size()):
-        totalpts = []
-        for j in range (0, 1024):
-            totalpts.append(totalcollection.at(i).getAmplitude().at(j))
-        totalgraph = ROOT.TGraph(1024, xss, np.array(totalpts))
-        cellID = totalcollection.at(i).getCellID()
-        ix = ((0x7f<<3)&cellID)>>3
-        iy = ((0x7f<<10)&cellID)>>10
-        totalgraph.SetTitle(f'Total Evt {i}: {ix},{iy};ns;Arb')
-        canvas = ROOT.TCanvas("Digis", "Digis", 1024, 768)
-        totalgraph.Draw()
-        canvas.SaveAs(f"digi-{i}-{ix}-{iy}.png")
-        
-        
-    evt += 1
-
+        ys = np.array([0.]*1024)
+        xbr = tree.Branch("xs", xs, "xs[1024]/D")
+        ybr = tree.Branch("ys", ys, "ys[1024]/D")
+        evtbr = tree.Branch("event", evt, "event/I")
+        ixbr =  tree.Branch("ix", ix, "ix/I")
+        iybr =  tree.Branch("iy", iy, "iy/I")
         
 
+
+
+    for s in range(0,totalcollection.size()):
+        ts = totalcollection.at(s)
+        cellID = ts.getCellID()
+        cix = ((0x7f<<3)&cellID)>>3
+        ciy = ((0x7f<<10)&cellID)>>10
+        ix[0] = cix
+        iy[0] = ciy
+        wave = np.array(ts.getAmplitude())
+        for i in range(0,1024):
+            ys[i] = wave[i]
+
+        tree.Fill()
+    evt[0]+=1
+        
+tf.Write()    
