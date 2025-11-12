@@ -13,17 +13,18 @@ k4RecCalorimeter -- Key4Hep Codebase for processing EDM4Hep Root files -> Digis
 https://github.com/saraheno/k4RecCalorimeter
 
 ```bash
-> git clone https://github.com/saraheno/k4RecCalorimeter
-> cd k4RecCalorimeter
-> git checkout dual_crys_calo_digi_experimental
-> mkdir build
-> mkdir install
+ source /cvmfs/sw.hsf.org/key4hep/setup.sh
+ git clone https://github.com/saraheno/k4RecCalorimeter
+ cd k4RecCalorimeter
+ git checkout dual_crys_calo_digi_experimental
+ mkdir build
+ mkdir install
 # If you haven't already make sure to source /cvmfs/sw.hsf.org/key4hep/setup.sh
-> cd build
-> cmake -DCMAKE_INSTALL_PREFIX=../install ..
-> make -j4
-> make install
-> k4_local_repo
+ cd build
+ cmake -DCMAKE_INSTALL_PREFIX=../install ..
+ make -j4
+ make install
+ k4_local_repo
 
 ```
 
@@ -33,18 +34,17 @@ DualIanna -- DD4hep simulation
 https://github.com/saraheno/DualIanna
 
 ```bash
-> git clone https://github.com/saraheno/DualIanna
-> cd DualIanna
-> git checkout experimental
-> mkdir build
-> mkdir install 
-> source /cvmfs/sw.hsf.org/key4hep/setup.sh
-> cd build
-> cmake ..  -D CMAKE_INSTALL_PREFIX=../install -D CMAKE_PREFIX_PATH=../install
-> make 
-> make install
-> cd ..
-> source ./install/bin/thisDualIanna.sh 
+ git clone https://github.com/saraheno/DualIanna
+ cd DualIanna
+ git checkout experimental
+ mkdir build
+ mkdir install 
+ cd build
+ cmake ..  -D CMAKE_INSTALL_PREFIX=../install -D CMAKE_PREFIX_PATH=../install
+ make 
+ make install
+ cd ..
+ source ./install/bin/thisDualIanna.sh 
 ```
 
 ```bash
@@ -141,12 +141,12 @@ Assuming everything above worked, let's run a simple simulation
 
 Note: Before running ddsim 
 
-```shell 
-> cd DualIanna/compact
-> ddsim --compactFile=DRConly.xml --runType=batch -G --steeringFile SCEPCALsteering_edm.py --outputFile=junk.edm4hep.root --part.userParticleHandler= -G --gun.position="0. 0.*mm -80*cm" --gun.direction "0. 0. 1." --gun.energy "20*GeV" --gun.particle="e-" -N20
+```bash
+ cd DualIanna/compact
+ ddsim --compactFile=DRConly.xml --runType=batch -G --steeringFile SCEPCALsteering_edm.py --outputFile=junk.edm4hep.root --part.userParticleHandler= -G --gun.position="0. 0.*mm -80*cm" --gun.direction "0. 0. 1." --gun.energy "20*GeV" --gun.particle="e-" -N20
 # now we wait ...
 # if it works we'll have an output file labeled junk.edm4hep.root
-> k4run digi_test.py # <-- this will process the root file -> digis
+ k4run make_digis.py # <-- this will process the root file -> digis
 ```
 
 
@@ -161,7 +161,7 @@ You cannot do something like tree->Print() and using the description create data
 
 Python Example digi_process.py 
 ```bash 
-> python digi_process.py -f edm4hep_output.root -o plots.root 
+> python convert_to_simple_tree.py -f edm4hep_output.root -o plots.root 
 ```
 Converts the digi waveforms into a structure a bit easier to use in ROOT 
 Where you have an event, xs and ys 
