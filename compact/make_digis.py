@@ -68,7 +68,7 @@ ApplicationMgr(
         podiooutput
     ],
     EvtSel = 'NONE',
-    EvtMax = 20,
+    EvtMax = 200,
     ExtSvc = [rndmEngine,rndmGenSvc,dataservice]
 )
  

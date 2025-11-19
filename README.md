@@ -80,6 +80,24 @@ k4run make_digis.py # <-- this will process the root file -> digis
 
 
 # To convert to a simple ROOT tree 
+
+This will create a ROOT file with 3 trees: 
+CalvisionSiPMDigiWaveform -- combined Scintillation and Cherenkov Photons
+CalvisionSiPMCerenWaveform -- Cherenkov only photons
+CalvisionSiPMScintWaveform -- Scintillation only photons 
+
+Simple Tree Structure 
+xs -- time bins using time series sampling rate 
+ys -- waveform bins 
+evt -- event number 
+ix -- x tower from cellID
+iy -- y tower from cellID
+layer -- front / rear layer from cellID
+
+
+
+
+
 ```bash
 	python convert_to_simple_tree.py -f edm4hep_output.root -o waves.root 
 ```
