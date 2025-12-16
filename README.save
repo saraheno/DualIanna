@@ -1,10 +1,21 @@
 
+# First time only (only on UMD cluster)
+
+git clone https://github.com/UVa-Calvision/dd4hep-rivanna.git
+
+cd dd4hep-rivanna/
+
+cd container/
+
+source ./build.sh
+
 
 # Always
 
 
-singularity run -B /cvmfs:/cvmfs -B /data:/data docker://gitlab-registry.cern.ch/sft/docker/alma9-core:latest
+conda deactivate  (if you are on the U. Maryland cluster)
 
+apptainer shell -B /cvmfs:/cvmfs -B /data:/data ~eno/apptainer/alma9.sif  (on UMD cluster)
 
 source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
