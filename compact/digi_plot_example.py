@@ -14,17 +14,12 @@ parser.add_argument('-o','--output', type=str, default = 'edm4hep_plots.root')
 args = parser.parse_args()
 reader = root_io.Reader(args.file)
 
+# define our output ROOT file and TTree branches
 tf = ROOT.TFile(args.output, 'RECREATE')
 
-wfs = []
-xs = None
-ys = None
-evt = np.array([0])
-ix=np.array([0])
-iy=np.array([0])
-layer=np.array([0])
 print('Reading events')
 
+# build a waveform tree 
 def buildWaveformTree(treeName, treeComment, sampling, bins):
     xs = None
     ys = None
@@ -64,12 +59,14 @@ def buildWaveformTree(treeName, treeComment, sampling, bins):
     return (tree, brs)
 
 
-
+# Hardcoded collection / treenames, so if the upstream digis code changes the collection names
+# things will break 
 treeNames = ['CalvisionSiPMDigiWaveform','CalvisionSiPMCerenWaveform','CalvisionSiPMScintWaveform']
 sevt =  reader.get("events")[0]
 trees = {}
 
 
+# Build our output trees
 for name in treeNames:
 
     collection = sevt.get(name)
@@ -78,7 +75,9 @@ for name in treeNames:
     trees[name] = buildWaveformTree(name,'Digis',entry.getInterval(),entry.amplitude_size())
 
 
-
+# Go through all the photons available
+# note! Currently no error handling, this can 
+# break 
 for event in reader.get("events"):
 
     for name in treeNames:
