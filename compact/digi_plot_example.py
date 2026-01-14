@@ -70,9 +70,11 @@ trees = {}
 for name in treeNames:
 
     collection = sevt.get(name)
-    entry =  collection.at(0)
+    if (collection.size() > 0):
+        print(f'Adding collection {name}, events {collection.size()}')
+        entry =  collection.at(0)
 
-    trees[name] = buildWaveformTree(name,'Digis',entry.getInterval(),entry.amplitude_size())
+        trees[name] = buildWaveformTree(name,'Digis',entry.getInterval(),entry.amplitude_size())
 
 
 # Go through all the photons available
@@ -80,7 +82,7 @@ for name in treeNames:
 # break 
 for event in reader.get("events"):
 
-    for name in treeNames:
+    for name in trees.keys():
         collection = event.get(name)
         
         tree, brs = trees[name]
