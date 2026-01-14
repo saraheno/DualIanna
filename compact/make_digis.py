@@ -2,8 +2,15 @@ from Gaudi.Configuration import *
 from Configurables import ApplicationMgr
 
 from Configurables import k4DataSvc
-dataservice = k4DataSvc("EventDataSvc", input="junk.edm4hep.root")
 
+# follow example to add custom args from: https://github.com/key4hep/K4FWCore
+from k4FWCore.parseArgs import parser
+parser.add_argument('-f','--file', type=str, default = 'junk.edm4hep.root')
+parser.add_argument('-o','--output', type=str, default = 'edm4hep_output.root')
+my_opts = parser.parse_known_args()
+
+
+dataservice = k4DataSvc("EventDataSvc", input=my_opts[0].file)
 
 
 from Configurables import PodioInput
@@ -41,7 +48,7 @@ digi.OutputLevel = DEBUG
 
 ## What we plan on writing (in this case everything) 
 from Configurables import PodioOutput
-podiooutput = PodioOutput("PodioOutput", filename = "edm4hep_output.root", OutputLevel = DEBUG)
+podiooutput = PodioOutput("PodioOutput", filename = my_opts[0].output, OutputLevel = DEBUG)
 podiooutput.outputCommands = ["keep *"]
 
 
