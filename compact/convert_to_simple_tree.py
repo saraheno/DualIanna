@@ -33,12 +33,14 @@ def buildWaveformTree(treeName, treeComment, sampling, bins):
     iy=np.array([0])
     layer=np.array([0])
 
+    
     xbr = None
     ybr = None
     evtbr = None
     ixbr = None
     iybr = None
     layerbr = None
+
 
     tree = ROOT.TTree(treeName, treeComment)
     xs = np.array([0.]*bins)
@@ -53,6 +55,7 @@ def buildWaveformTree(treeName, treeComment, sampling, bins):
     iybr =  tree.Branch("iy", iy, "iy/I")
     layerbr = tree.Branch("layer", layer, "layer/I")
 
+    
     brs = {}
     brs['xs'] = (xbr,xs)
     brs['ys'] = (ybr,ys)
@@ -60,7 +63,7 @@ def buildWaveformTree(treeName, treeComment, sampling, bins):
     brs['ix'] = (ixbr,ix)
     brs['iy'] = (iybr,iy)
     brs['layer'] = (layerbr, layer)
-    
+
     return (tree, brs)
 
 
@@ -75,6 +78,7 @@ for name in treeNames:
     collection = sevt.get(name)
     if (collection.size() > 0):
         print(f'Adding collection {name}, events {collection.size()}')
+
         entry =  collection.at(0)
 
         trees[name] = buildWaveformTree(name,'Digis',entry.getInterval(),entry.amplitude_size())
@@ -83,21 +87,26 @@ for name in treeNames:
 
 for event in reader.get("events"):
 
+    eventHeader = event.get('EventHeader')
+    eventnumber = eventHeader.eventNumber()[0]
+
     for name in trees.keys():
         collection = event.get(name)
         
         tree, brs = trees[name]
-        
+        brs['evt'][1][0] = eventnumber   
         for s in range(0,collection.size()):
             ts = collection.at(s)
             cellID = ts.getCellID()
             cix = ((0x7f<<3)&cellID)>>3
             ciy = ((0x7f<<10)&cellID)>>10
             layerid = ((0x7<<20)&cellID)>>20
+
+
             brs['ix'][1][0] = cix
             brs['iy'][1][0] = ciy
             brs['layer'][1][0] = layerid
-            
+
             wave = np.array(ts.getAmplitude())
             bincount = ts.amplitude_size()
             for i in range(0,bincount):
@@ -105,7 +114,7 @@ for event in reader.get("events"):
             
 
             tree.Fill()
-        brs['evt'][1][0] +=1
+
 
         
 tf.Write()    
