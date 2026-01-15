@@ -92,9 +92,10 @@ for event in reader.get("events"):
             cellID = ts.getCellID()
             cix = ((0x7f<<3)&cellID)>>3
             ciy = ((0x7f<<10)&cellID)>>10
+            layerid = ((0x7<<20)&cellID)>>20
             brs['ix'][1][0] = cix
             brs['iy'][1][0] = ciy
-
+            brs['layer'][1][0] = layerid
             wave = np.array(ts.getAmplitude())
             bincount = ts.amplitude_size()
             for i in range(0,bincount):
