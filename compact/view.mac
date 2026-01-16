@@ -1,0 +1,6 @@
+/vis/geometry/set/visibility layer 0 false
+/vis/geometry/set/visibility layer 1 false
+/vis/geometry/set/visibility tower 0 false
+/vis/geometry/set/visibility DRCrystal 1 false
+/vis/geometry/set/visibility EdgeDet 0 false
+/vis/viewer/centreAndZoomInOn DRCrystal_0 
