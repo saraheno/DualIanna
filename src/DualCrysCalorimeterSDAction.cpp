@@ -28,13 +28,15 @@ using namespace std;
 //   so randomly delete photons after creation according to this fraction
 //   dialScint=1.0, dialCer=1.0 to keep all photons 
 double dialCherC  = 1000 / 1000000.;
-double dialCherO  =  100 / 1000000.;
+double dialCherO  = 100 / 1000000.;
 
 double dialScintC = 1000 / 1000000.;
-double dialScintO =  100 / 1000000.;
+double dialScintO = 100 / 1000000.;
 float betarel=1/1.544;	//depends on the media refractive index
 int printlimitSCE=10;
 int MAXEVENT=10;
+
+bool debugFlag = false; 
 
 namespace CalVision {
 	G4double fromEvToNm(G4double energy){
@@ -80,9 +82,13 @@ namespace dd4hep {  // Namespace for the Geant4 based simulation part of the AID
 	    declareProperty("betarel", betarel);
 	    declareProperty("printlimitSCE", printlimitSCE);
 	    declareProperty("MAXEVENTSCE", MAXEVENT);
+	    declareProperty("Debug", debugFlag);
+
+	    cout << "DialCherC (Process):" << dialCherC << std::endl;
+	    cout << "DialScintC (Process):" << dialScintC << std::endl; 
+
 	  }
 
-	  
 		/// Define collections created by this sensitivie action object
 		template <> void Geant4SensitiveAction<DualCrysCalorimeterSD>::defineCollections()    {
 			m_hitCreationMode = Geant4Sensitive::DETAILED_MODE;
@@ -149,6 +155,7 @@ namespace dd4hep {  // Namespace for the Geant4 based simulation part of the AID
 			G4Track *track =  step->GetTrack();
 			string amedia = ((track->GetMaterial())->GetName());
 			float avearrival=(pretime+posttime)/2.;
+
 			//if(thePostPoint->GetProcessDefinedStep()->GetProcessName().contains("Inelast")) hit->n_inelastic+=1;
 			
 			//photons
@@ -175,7 +182,8 @@ namespace dd4hep {  // Namespace for the Geant4 based simulation part of the AID
 								dial = dialCherO;
 							}
 							if (rnd.rndm() < dial) {
-								std::cout << "contrib.time: " << contrib.time << "  pretime: " << pretime << "  posttime: " << posttime << std::endl;
+							  if (debugFlag)
+							    std::cout << "contrib.time: " << contrib.time << "  pretime: " << pretime << "  posttime: " << posttime << std::endl;
 								hit->truth.emplace_back(contrib);
 							} else {
 								track->SetTrackStatus(fStopAndKill);

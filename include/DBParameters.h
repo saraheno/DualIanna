@@ -12,7 +12,7 @@ class DBParameters {
   float m_betarel=1/1.544;
   int m_printlimitSCE=10;
   int m_MAXEVENTSCE=10;
-
+  bool debugFlag = false; 
   static DBParameters* instance() {
     static DBParameters* theBDP = new DBParameters();
     return theBDP;

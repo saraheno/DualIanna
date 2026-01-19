@@ -8,6 +8,7 @@ parser = argparse.ArgumentParser('Waveform drawer')
 parser.add_argument("-f", "--file", type=str, default='test.root')
 parser.add_argument('-e','--event', type=int, default = 1)
 parser.add_argument('-l','--layer', type=int, default = 0)
+parser.add_argument('-s','--scale', type=float, default = 1.0)
 
 args = parser.parse_args()
 
@@ -50,7 +51,7 @@ print(f'combo max ix: {combowaves["ix"][maxcombo]}, iy: {combowaves["iy"][maxcom
 fig,(ax0,ax1,ax2) = plt.subplots(3,1)
 #for i in range (0, len(swaves['xs'])):
 #    ax0.plot(swaves['xs'][i], swaves['ys'][i])
-ax0.plot(swaves['xs'][maxscint], swaves['ys'][maxscint])    
+ax0.plot(swaves['xs'][maxscint], swaves['ys'][maxscint]*args.scale)    
 ax0.set_xlabel('ns',loc='right')
 ax0.set_ylabel('mv')
 ax0.set_title('Scintilation Photons',loc='left')
@@ -67,7 +68,7 @@ ax1.set_title('Cherenkov Photons',loc='left')
 #for i in range (0, len(combowaves['xs'])):
 #    ax2.plot(combowaves['xs'][i], combowaves['ys'][i])
 
-ax2.plot(combowaves['xs'][maxcombo], combowaves['ys'][maxcombo])
+ax2.plot(combowaves['xs'][maxcombo], swaves['ys'][maxscint]*args.scale + cwaves['ys'][maxcheren])
 ax2.set_xlabel('ns', loc='right')
 ax2.set_ylabel('mv')
 ax2.set_title('Combined Photons',loc='left')

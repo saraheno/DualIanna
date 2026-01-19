@@ -7,8 +7,9 @@ from Configurables import k4DataSvc
 from k4FWCore.parseArgs import parser
 parser.add_argument('-f','--file', type=str, default = 'junk.edm4hep.root')
 parser.add_argument('-o','--output', type=str, default = 'edm4hep_output.root')
+parser.add_argument('--filter', type=str, choices = ['u330', 'o58', 'none'], default = 'none')
 my_opts = parser.parse_known_args()
-
+print(my_opts)
 
 dataservice = k4DataSvc("EventDataSvc", input=my_opts[0].file)
 
@@ -31,6 +32,12 @@ from Configurables import DualCrysSiPMAlgo
 ## This algorithm will read a filtered list of photons and produce
 ## digi outputs 
 sipmAlgo = DualCrysSiPMAlgo("Calvision SiPM Algo")
+# default no filter 
+if my_opts[0].filter == 'u330':
+    sipmAlgo.U330 = True
+elif my_opts[0].filter == 'o58':
+    sipmAlgo.O58 = True
+
 
 
 ## The first part of digis, this will filter out Cherenkov and Scint. Photons

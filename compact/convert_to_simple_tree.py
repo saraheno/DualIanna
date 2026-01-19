@@ -83,13 +83,14 @@ for name in treeNames:
 
         trees[name] = buildWaveformTree(name,'Digis',entry.getInterval(),entry.amplitude_size())
 
-
+# reset reader
+reader = root_io.Reader(args.file)
 
 for event in reader.get("events"):
-
+    
     eventHeader = event.get('EventHeader')
     eventnumber = eventHeader.eventNumber()[0]
-
+    print(f'Processing event {eventnumber}')
     for name in trees.keys():
         collection = event.get(name)
         
