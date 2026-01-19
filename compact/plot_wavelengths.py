@@ -44,8 +44,6 @@ elif args.cherenkov:
 axes.hist(dfs[names['pass']]['wavelength'], bins=1000, linewidth=0.5, edgecolor = 'white')
 axes.hist(dfs[names['kill']]['wavelength'], bins=1000, linewidth=0.5, edgecolor='white')
 
-#axes.hist(dfs['passedScintPhotons']['wavelength'], bins=1000, linewidth=0.5, edgecolor = 'white')
-#axes.hist(dfs['killedScintPhotons']['wavelength'], bins=1000, linewidth=0.5, edgecolor='white')
 axes.set(xlim=(200,1200))
 axes.set_xlabel('nm', loc='right')
 axes.set_ylabel('counts')
