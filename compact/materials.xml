@@ -974,7 +974,8 @@
       <property name="SCINTILLATIONCOMPONENT1" ref="scintFast_BGO"/>
 <!--      <constant name="SCINTILLATIONYIELD" value="9./keV"/> -->
 <!-- scale factor for scint is 20 -->
-      <constant name="SCINTILLATIONYIELD" value="0.45/keV"/>
+<!-- shouldn't this be 8-10? constant name="SCINTILLATIONYIELD" value="0.45/keV"/> -->
+      <constant name="SCINTILLATIONYIELD" value="9/keV"/>
       <constant name="SCINTILLATIONTIMECONSTANT1" value="300.0*ns"/>
       <constant name="RESOLUTIONSCALE" value="1."/>
   </material>
