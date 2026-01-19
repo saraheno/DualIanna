@@ -56,7 +56,15 @@ digi.OutputLevel = DEBUG
 ## What we plan on writing (in this case everything) 
 from Configurables import PodioOutput
 podiooutput = PodioOutput("PodioOutput", filename = my_opts[0].output, OutputLevel = DEBUG)
-podiooutput.outputCommands = ["keep *"]
+podiooutput.outputCommands = ["drop *",
+                              "keep CalvisionSiPMDigiWaveform",
+                              "keep CalvisionSiPMScintWaveform",
+                              "keep CalvisionSiPMCerenWaveform",
+                              "keep killedCherenPhotons",
+                              "keep killedScintPhotons",
+                              "keep passedScintPhotons",
+                              "keep passedCherenPhotons",
+                              "keep EventHeader"]
 
 
 

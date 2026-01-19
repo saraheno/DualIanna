@@ -67,7 +67,7 @@ def buildWaveformTree(treeName, treeComment, sampling, bins):
     return (tree, brs)
 
 treeNames = ['CalvisionSiPMDigiWaveform','CalvisionSiPMCerenWaveform','CalvisionSiPMScintWaveform']
-responseTreeNames = ['killedCherenPhotons', 'killedScintPhotons']
+responseTreeNames = ['killedCherenPhotons', 'killedScintPhotons', 'passedCherenPhotons', 'passedScintPhotons']
 sevt =  reader.get("events")[0]
 trees = {}
 responseTrees = {} 
@@ -147,8 +147,7 @@ for event in reader.get("events"):
     eV = 1e-6 # in terms of mega electron volts, from CLHEP....
     ## Fill Dead/Live Photon Wavelength Histograms
     print('Filling Dead/Live Photon Histograms')
-    kcphtns = event.get('killedCherenPhotons')
-    kscintphtns = event.get('killedScintPhotons')
+
     for name in responseTreeNames:
         collection = event.get(name)
         tree, brs = responseTrees[name]
