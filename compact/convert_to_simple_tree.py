@@ -66,11 +66,38 @@ def buildWaveformTree(treeName, treeComment, sampling, bins):
 
     return (tree, brs)
 
-
-
 treeNames = ['CalvisionSiPMDigiWaveform','CalvisionSiPMCerenWaveform','CalvisionSiPMScintWaveform']
+responseTreeNames = ['killedCherenPhotons', 'killedScintPhotons']
 sevt =  reader.get("events")[0]
 trees = {}
+responseTrees = {} 
+
+
+for name in responseTreeNames:
+    evt = np.array([0])
+    ix=np.array([0])
+    iy=np.array([0])
+    layer=np.array([0])
+    wavelength = np.array([0.],dtype=np.float32)
+    evtbr = None
+    ixbr = None
+    iybr = None
+    layerbr = None
+    
+
+    brs = {}
+    tree = ROOT.TTree(name, 'Photon Wavelengths')
+    evtbr = tree.Branch("event", evt, "event/I")
+    ixbr =  tree.Branch("ix", ix, "ix/I")
+    iybr =  tree.Branch("iy", iy, "iy/I")
+    layerbr = tree.Branch("layer", layer, "layer/I")
+    wavelengthbr = tree.Branch("wavelength", wavelength, "wavelength/F")
+    brs['evt'] = (evtbr,evt)
+    brs['ix'] = (ixbr,ix)
+    brs['iy'] = (iybr,iy)
+    brs['layer'] = (layerbr, layer)
+    brs['wavelength'] = (wavelengthbr, wavelength)
+    responseTrees[name] = (tree, brs)
 
 
 for name in treeNames:
@@ -116,6 +143,36 @@ for event in reader.get("events"):
 
             tree.Fill()
 
+
+    eV = 1e-6 # in terms of mega electron volts, from CLHEP....
+    ## Fill Dead/Live Photon Wavelength Histograms
+    print('Filling Dead/Live Photon Histograms')
+    kcphtns = event.get('killedCherenPhotons')
+    kscintphtns = event.get('killedScintPhotons')
+    for name in responseTreeNames:
+        collection = event.get(name)
+        tree, brs = responseTrees[name]
+        eventHeader = event.get('EventHeader')
+        eventnumber = eventHeader.eventNumber()[0]
+
+        brs['evt'][1][0] = eventnumber
+        
+        for idx in range(0,collection.size()):
+            photon = collection.at(idx)
+            cellID = photon.getCellID()
+            cix = ((0x7f<<3)&cellID)>>3
+            ciy = ((0x7f<<10)&cellID)>>10
+            layerid = ((0x7<<20)&cellID)>>20
+            energy = photon.getEnergy()/eV
+            wavelength = 1239.84187 / (1000*energy);
+            
+            brs['ix'][1][0] = cix
+            brs['iy'][1][0] = ciy
+            brs['layer'][1][0] = layerid
+
+            brs['wavelength'][1][0] = wavelength
+            
+            tree.Fill()
 
         
 tf.Write()    
