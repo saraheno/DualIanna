@@ -16,7 +16,7 @@ args = parser.parse_args()
 filterS = f'event=={args.event} && layer == {args.layer}'
 print(filterS)
 scint = RDataFrame('CalvisionSiPMScintWaveform', args.file).Filter(filterS)
-cheren = RDataFrame('CalvisionSiPMCerenWaveform', args.file).Filter(filterS)
+cheren = RDataFrame('CalvisionSiPMCherenWaveform', args.file).Filter(filterS)
 combo = RDataFrame('CalvisionSiPMDigiWaveform', args.file).Filter(filterS)
 
 nparrs = ['xs', 'ys', "ix", "iy"]

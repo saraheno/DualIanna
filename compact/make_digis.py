@@ -28,15 +28,16 @@ podioinput = PodioInput("PodioInput",
     OutputLevel = DEBUG
 )
 
-from Configurables import DualCrysSiPMAlgo
+#from Configurables import DualCrysSiPMAlgo
+from Configurables import DualCrysSiPMSim
 ## This algorithm will read a filtered list of photons and produce
 ## digi outputs 
-sipmAlgo = DualCrysSiPMAlgo("Calvision SiPM Algo")
+sipmAlgo = DualCrysSiPMSim("Calvision SiPM Algo")
 # default no filter 
-if my_opts[0].filter == 'u330':
-    sipmAlgo.U330 = True
-elif my_opts[0].filter == 'o58':
-    sipmAlgo.O58 = True
+# if my_opts[0].filter == 'u330':
+#     sipmAlgo.U330 = True
+# elif my_opts[0].filter == 'o58':
+#     sipmAlgo.O58 = True
 
 
 
@@ -58,13 +59,13 @@ from Configurables import PodioOutput
 podiooutput = PodioOutput("PodioOutput", filename = my_opts[0].output, OutputLevel = DEBUG)
 podiooutput.outputCommands = ["drop *",
                               "keep CalvisionSiPMDigiWaveform",
-                              "keep CalvisionSiPMScintWaveform",
-                              "keep CalvisionSiPMCerenWaveform",
-                              "keep killedCherenPhotons",
-                              "keep killedScintPhotons",
-                              "keep passedScintPhotons",
-                              "keep passedCherenPhotons",
-                              "keep EventHeader"]
+                               "keep CalvisionSiPMScintWaveform",
+                               "keep CalvisionSiPMCherenWaveform",
+                               "keep killedCherenPhotons",
+                               "keep killedScintPhotons",
+                               "keep passedScintPhotons",
+                               "keep passedCherenPhotons",
+                               "keep EventHeader"]
 
 
 

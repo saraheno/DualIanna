@@ -66,7 +66,7 @@ def buildWaveformTree(treeName, treeComment, sampling, bins):
 
     return (tree, brs)
 
-treeNames = ['CalvisionSiPMDigiWaveform','CalvisionSiPMCerenWaveform','CalvisionSiPMScintWaveform']
+treeNames = ['CalvisionSiPMDigiWaveform','CalvisionSiPMCherenWaveform','CalvisionSiPMScintWaveform']
 responseTreeNames = ['killedCherenPhotons', 'killedScintPhotons', 'passedCherenPhotons', 'passedScintPhotons']
 sevt =  reader.get("events")[0]
 trees = {}

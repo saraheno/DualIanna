@@ -22,6 +22,7 @@ project(${PackageName})
 
 find_package(k4RecCalorimeter)
 find_package(EDM4HEP REQUIRED) # implicit: Podio
+message(STATUS ${k4RecCalorimeter_DIR})
 
 SET(CMAKE_INSTALL_LIBDIR lib)
 
@@ -54,6 +55,7 @@ endif()
 
 find_file(DCCHheader NAMES DualCrysCalorimeterHit.h
   # k4RecCalorimeter_DIR is lib/cmake inside k4RecCalorimeter or something
+
   PATHS ${k4RecCalorimeter_DIR}/../../../include/k4RecCalorimeter
 )
 
@@ -103,7 +105,7 @@ dd4hep_add_plugin ( DualIanna
 
 dd4hep_instantiate_package(${PackageName})
 
-#target_include_directories(DualIanna PRIVATE ${k4RecCalorimeter_INCLUDE_DIRS})
+target_include_directories(DualIanna PRIVATE ${k4RecCalorimeter_DIR}/../../../include)
 #target_link_libraries(DualIanna PRIVATE k4RecCalorimeter)
 target_include_directories(DualIanna PUBLIC include )
 target_link_libraries(DualIanna PUBLIC k4RecCalorimeter::k4RecCalorimeterPlugins)
