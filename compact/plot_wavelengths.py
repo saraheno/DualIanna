@@ -41,13 +41,14 @@ elif args.cherenkov:
 
 
     
-axes.hist(dfs[names['pass']]['wavelength'], bins=1000, linewidth=0.5, edgecolor = 'white')
-axes.hist(dfs[names['kill']]['wavelength'], bins=1000, linewidth=0.5, edgecolor='white')
+axes.hist(dfs[names['pass']]['wavelength'], bins=1000, linewidth=0.25, edgecolor='white', label='Passed')
+axes.hist(dfs[names['kill']]['wavelength'], bins=1000, linewidth=0.25, edgecolor='white', label='Killed')
 
 axes.set(xlim=(200,1200))
 axes.set_xlabel('nm', loc='right')
 axes.set_ylabel('counts')
 axes.set_title(title)
+axes.legend()
 plt.show()
 
 
