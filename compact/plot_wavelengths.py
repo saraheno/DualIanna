@@ -41,8 +41,9 @@ elif args.cherenkov:
 
 
     
-axes.hist(dfs[names['pass']]['wavelength'], bins=1000, linewidth=0.25, edgecolor='white', label='Passed')
-axes.hist(dfs[names['kill']]['wavelength'], bins=1000, linewidth=0.25, edgecolor='white', label='Killed')
+axes.hist([dfs[names['pass']]['wavelength'], dfs[names['kill']]['wavelength']], bins=1000,
+          linewidth=0.25, edgecolor='white', stacked = True, label=['Passed', 'Killed'])
+
 
 axes.set(xlim=(200,1200))
 axes.set_xlabel('nm', loc='right')
