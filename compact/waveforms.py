@@ -3,12 +3,15 @@ from ROOT import RDataFrame
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
+from os.path import basename
 
 parser = argparse.ArgumentParser('Waveform drawer')
 parser.add_argument("-f", "--file", type=str, default='test.root')
 parser.add_argument('-e','--event', type=int, default = 1)
 parser.add_argument('-l','--layer', type=int, default = 0)
 parser.add_argument('-s','--scale', type=float, default = 1.0)
+parser.add_argument('-p','--print', action='store_true')
+
 
 args = parser.parse_args()
 
@@ -16,7 +19,7 @@ args = parser.parse_args()
 filterS = f'event=={args.event} && layer == {args.layer}'
 print(filterS)
 scint = RDataFrame('CalvisionSiPMScintWaveform', args.file).Filter(filterS)
-cheren = RDataFrame('CalvisionSiPMCherenWaveform', args.file).Filter(filterS)
+cheren = RDataFrame('CalvisionSiPMCerenWaveform', args.file).Filter(filterS)
 combo = RDataFrame('CalvisionSiPMDigiWaveform', args.file).Filter(filterS)
 
 nparrs = ['xs', 'ys', "ix", "iy"]
@@ -48,13 +51,13 @@ print(f'combo max ix: {combowaves["ix"][maxcombo]}, iy: {combowaves["iy"][maxcom
 
 
 
-fig,(ax0,ax1,ax2) = plt.subplots(3,1)
+fig,(ax0,ax1,ax2) = plt.subplots(3,1,layout="constrained")
 #for i in range (0, len(swaves['xs'])):
 #    ax0.plot(swaves['xs'][i], swaves['ys'][i])
 ax0.plot(swaves['xs'][maxscint], swaves['ys'][maxscint]*args.scale)    
 ax0.set_xlabel('ns',loc='right')
 ax0.set_ylabel('mv')
-ax0.set_title('Scintilation Photons',loc='left')
+ax0.set_title('Scintillation Photons',loc='left')
 
 #for i in range (0, len(cwaves['xs'])):
 #    ax1.plot(cwaves['xs'][i], cwaves['ys'][i])
@@ -73,6 +76,10 @@ ax2.set_xlabel('ns', loc='right')
 ax2.set_ylabel('mv')
 ax2.set_title('Combined Photons',loc='left')
 
+thefile = basename(args.file).removesuffix('.root')
+fig.suptitle(f'{thefile} e{args.event}:l{args.layer}')
+if args.print:
+    plt.savefig(f'{thefile}_e{args.event}_l{args.layer}.png')
 plt.show()
 
 #waveforms = rdf.Filter('event==3 && layer==0').AsNumpy(['xs', 'ys'])
