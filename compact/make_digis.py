@@ -8,7 +8,8 @@ from k4FWCore.parseArgs import parser
 parser.add_argument('-f','--file', type=str, default = 'junk.edm4hep.root')
 parser.add_argument('-o','--output', type=str, default = 'edm4hep_output.root')
 parser.add_argument('--filter', type=str, choices = ['u330', 'o58', 'none'], default = 'none')
-parser.add_argument('-d', '--algo', type=str, choices = ['simsipm', 'sasha'], default = 'sasha')
+parser.add_argument('-d', '--algo', type=str, choices = ['simsipm', 'sasha'], default = 'sasha',
+                    help = 'Algorithm to use for digi construction. Sasha is our signal model')
 my_opts = parser.parse_known_args()
 print(my_opts)
 
