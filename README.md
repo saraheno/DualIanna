@@ -8,7 +8,6 @@ singularity run -B /cvmfs:/cvmfs -B /data:/data docker://gitlab-registry.cern.ch
 
 source /cvmfs/sw.hsf.org/key4hep/setup.sh
 
-(also have tried instead of that setup source /cvmfs/sft-nightlies.cern.ch/lcg/views/devkey-head/latest/x86_64-el9-gcc14-opt/setup.sh as suggested by Juan and Sam)
 
 # again only the first time
 
@@ -58,7 +57,7 @@ export PYTHONPATH=$PWD/install/python:$PYTHONPATH
 cd DualIanna/compact
 
 ```
- ddsim --compactFile=DRConly.xml --runType=vis -G --steeringFile SCEPCALsteering.py --outputFile=junk.root --part.userParticleHandler= -G --gun.position="0. 0.*mm -80*cm" --gun.direction "0. 0. 1." --gun.energy "20*GeV" --gun.particle="pi-" 
+ ddsim --compactFile=DRConly.xml --runType=qt -G --steeringFile SCEPCALsteering.py --outputFile=junk.root --part.userParticleHandler= -G --gun.position="0. 0.*mm -80*cm" --gun.direction "0. 0. 1." --gun.energy "20*GeV" --gun.particle="pi-" 
 ```
 
 # to digitize
