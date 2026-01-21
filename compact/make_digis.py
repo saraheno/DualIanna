@@ -8,6 +8,7 @@ from k4FWCore.parseArgs import parser
 parser.add_argument('-f','--file', type=str, default = 'junk.edm4hep.root')
 parser.add_argument('-o','--output', type=str, default = 'edm4hep_output.root')
 parser.add_argument('--filter', type=str, choices = ['u330', 'o58', 'none'], default = 'none')
+parser.add_argument('-d', '--algo', type=str, choices = ['simsipm', 'sasha'], default = 'sasha')
 my_opts = parser.parse_known_args()
 print(my_opts)
 
@@ -28,17 +29,25 @@ podioinput = PodioInput("PodioInput",
     OutputLevel = DEBUG
 )
 
-#from Configurables import DualCrysSiPMAlgo
+from Configurables import DualCrysSiPMAlgo
 from Configurables import DualCrysSiPMSim
 ## This algorithm will read a filtered list of photons and produce
-## digi outputs 
-sipmAlgo = DualCrysSiPMSim("Calvision SiPM Algo")
-# default no filter 
-# if my_opts[0].filter == 'u330':
-#     sipmAlgo.U330 = True
-# elif my_opts[0].filter == 'o58':
-#     sipmAlgo.O58 = True
+## digi outputs
 
+algo = None
+if (my_opts[0].algo == 'simsipm'):
+    algo = DualCrysSiPMSim('Calvision SiPM Algo')
+elif (my_opts[0].algo == 'sasha'):
+    algo = DualCrysSiPMAlgo('Calvision SiPM Algo')
+# default no filter
+if (my_opts[0].algo == 'sasha'): 
+    if my_opts[0].filter == 'u330':
+        algo.U330 = True
+    elif my_opts[0].filter == 'o58':
+        algo.O58 = True
+elif (my_opts[0].algo == 'simsipm' and my_opts[0].filter != 'none'):
+    print(f'Currently no filter support using SimSiPM...Sorry!')
+    exit()
 
 
 ## The first part of digis, this will filter out Cherenkov and Scint. Photons
@@ -87,7 +96,7 @@ ApplicationMgr(
     TopAlg = [
         podioinput,
         digi,
-        sipmAlgo,
+        algo,
         podiooutput
     ],
     EvtSel = 'NONE',
