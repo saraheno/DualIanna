@@ -51,6 +51,13 @@ elif (my_opts[0].algo == 'simsipm' and my_opts[0].filter != 'none'):
     exit()
 
 
+if (my_opts[0].algo == 'simsipm'):
+    # Print setting the wavelength and response for the simsipm pde calculation
+    wavelength = [800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300]
+    pde = [0.22, 0.30, 0.40, 0.45, 0.50, 0.50, 0.45, 0.35, 0.25, 0.15, 0.0]
+    algo.wavelength = wavelength
+    algo.sipmEfficiency = pde
+    
 ## The first part of digis, this will filter out Cherenkov and Scint. Photons
 ## from the DRCNoSegment collection
 from Configurables import DualCrysCalDigi
