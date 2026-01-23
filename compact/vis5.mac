@@ -37,7 +37,7 @@
 # Specify style (surface or wireframe):
 /vis/viewer/set/style wireframe
 #/vis/viewer/set/style surface
-/vis/viewer/set/background white
+#/vis/viewer/set/background white
 
 # Draw coordinate axes:
 #/vis/scene/add/axes 0 0 0 10 cm

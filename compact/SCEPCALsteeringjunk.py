@@ -85,8 +85,8 @@ SIM.action.calo = ("DualCrysCalorimeterSDAction",
    "dialCherO": 1.,
    "dialScintO": 1.,
    "betarel": 0.648,
-   "printlimitSCE": 10,
-   "MAXEVENTSCE": 10,
+   "printlimitSCE": 100,
+   "MAXEVENTSCE": 100,
    # etc.
   })
 
@@ -386,8 +386,8 @@ def exampleUserPlugin(dd4hepSimulation):
      evt_root.enableUI()
      Kernel().eventAction().add(evt_root)
      return None
-SIM.outputConfig.userOutputPlugin = exampleUserPlugin
-SIM.outputConfig.myExtension = '.root'
+#SIM.outputConfig.userOutputPlugin = exampleUserPlugin
+#SIM.outputConfig.myExtension = '.root'
 
 
 ################################################################################
@@ -488,13 +488,13 @@ def setupCerenkovScint(kernel):
      scint.enableUI()
      seq.adopt(scint)
 
-#     cerenkov = PhysicsList(kernel, 'Geant4CerenkovPhysics/CerenkovPhys')
-#     cerenkov.VerboseLevel = 0
-#     cerenkov.MaxNumPhotonsPerStep = 10
-#     cerenkov.MaxBetaChangePerStep = 10.0
-#     cerenkov.TrackSecondariesFirst = True
-#     cerenkov.enableUI()
-#     seq.adopt(cerenkov)
+     #cerenkov = PhysicsList(kernel, 'Geant4CerenkovPhysics/CerenkovPhys')
+     #cerenkov.VerboseLevel = 0
+     #cerenkov.MaxNumPhotonsPerStep = 10
+     #cerenkov.MaxBetaChangePerStep = 10.0
+     #cerenkov.TrackSecondariesFirst = True
+     #cerenkov.enableUI()
+     #seq.adopt(cerenkov)
 
      ph = PhysicsList(kernel, 'Geant4OpticalPhotonPhysics/OpticalGammaPhys')
      ph.addParticleConstructor('G4OpticalPhoton')

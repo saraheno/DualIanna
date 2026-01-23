@@ -37,7 +37,7 @@
 # Specify style (surface or wireframe):
 /vis/viewer/set/style wireframe
 #/vis/viewer/set/style surface
-/vis/viewer/set/background white
+#/vis/viewer/set/background white
 
 # Draw coordinate axes:
 #/vis/scene/add/axes 0 0 0 10 cm
@@ -59,7 +59,7 @@
 /vis/filtering/trajectories/create/particleFilter
 #/vis/filtering/trajectories/particleFilter-0/add geantino
 #/vis/filtering/trajectories/particleFilter-0/add pi-
-/vis/filtering/trajectories/particleFilter-0/add e-
+#/vis/filtering/trajectories/particleFilter-0/add e-
 #/vis/filtering/trajectories/particleFilter-0/add e+
 /vis/filtering/trajectories/particleFilter-0/add opticalphoton
 /vis/filtering/trajectories/particleFilter-0/add mu-

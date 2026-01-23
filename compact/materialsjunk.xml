@@ -570,36 +570,36 @@
       4.13281*eV 0.100*m
       "/>
     <matrix name="AbsLen_CF" coldim="2" values="
-      1.1*eV 0.001*m
-      1.54980*eV 0.001*mm
-      1.65312*eV 0.001*mm
-      1.71013*eV 0.001*mm
-      1.77120*eV 0.001*mm
-      1.83680*eV 0.0001*mm
-      1.90745*eV 0.001*mm
-      1.98375*eV 0.001*mm
-      2.06640*eV 0.001*mm
-      2.10143*eV 0.001*mm
-      2.13766*eV 0.001*mm
-      2.17516*eV 0.001*mm
-      2.21400*eV 0.001*mm
-      2.25426*eV 0.001*mm
-      2.29600*eV 0.001*mm
-      2.33932*eV 0.001*mm
-      2.38431*eV 0.001*mm
-      2.43106*eV 0.001*mm
-      2.47968*eV 0.001*mm
-      2.53029*eV 0.001*mm
-      2.58300*eV 0.001*mm
-      2.63796*eV 0.001*mm
-      2.69531*eV 0.001*mm
-      2.75520*eV 0.001*mm
-      2.81782*eV 0.001*mm
-      2.88335*eV 0.001*mm
-      2.95200*eV 0.001*mm
-      3.09960*eV 0.001*mm
-      3.54241*eV 0.001*mm
-      4.13281*eV 0.001*mm
+      1.10000*eV 0.0005*m
+      1.54980*eV 0.0005*mm
+      1.65312*eV 0.0005*mm
+      1.71013*eV 0.0005*mm
+      1.77120*eV 0.0005*mm
+      1.83680*eV 0.0005*mm
+      1.90745*eV 0.0005*mm
+      1.98375*eV 0.0005*mm
+      2.06640*eV 0.0005*mm
+      2.10143*eV 0.0005*mm
+      2.13766*eV 0.0005*mm
+      2.17516*eV 0.0005*mm
+      2.21400*eV 0.0005*mm
+      2.25426*eV 0.0005*mm
+      2.29600*eV 0.0005*mm
+      2.33932*eV 0.0005*mm
+      2.38431*eV 0.0005*mm
+      2.43106*eV 0.0005*mm
+      2.47968*eV 0.0005*mm
+      2.53029*eV 0.0005*mm
+      2.58300*eV 0.0005*mm
+      2.63796*eV 0.0005*mm
+      2.69531*eV 0.0005*mm
+      2.75520*eV 0.0005*mm
+      2.81782*eV 0.0005*mm
+      2.88335*eV 0.0005*mm
+      2.95200*eV 0.0005*mm
+      3.09960*eV 0.0005*mm
+      3.54241*eV 0.0005*mm
+      4.13281*eV 0.0005*mm
       "/>
     <matrix name="scintFast_PS" coldim="2" values="
       1.1*eV 0.
@@ -885,7 +885,8 @@
       <fraction n="0.754" ref="N"/>
       <fraction n="0.234" ref="O"/>
       <fraction n="0.012" ref="Ar"/>
-      <property name="RINDEX"        ref="RINDEX__Air"/>
+     <property name="RINDEX"        ref="RINDEX__Air"/>
+<!--      <property name="RINDEX"        ref="RINDEX__PbWO4"/> -->
     </material>
 
 
@@ -952,7 +953,7 @@
     <property name="RINDEX"        ref="RINDEX__PbWO4"/>
       <property name="ABSLENGTH" ref="AbsLen_PbWO4"/>
       <property name="SCINTILLATIONCOMPONENT1" ref="scintFast_PbWO4"/>
-      <constant name="SCINTILLATIONYIELD" value="0.45/keV"/>
+      <constant name="SCINTILLATIONYIELD" value="0.0001/keV"/>
       <constant name="SCINTILLATIONTIMECONSTANT1" value="5.*ns"/>
       <constant name="SCINTILLATIONTIMECONSTANT2" value="15.*ns"/>
       <constant name="SCINTILLATIONRISETIME1" value="0.01*ns"/>

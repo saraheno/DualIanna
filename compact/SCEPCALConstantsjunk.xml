@@ -22,8 +22,8 @@
     <constant name="DRcrystalResinthick" value="0.1*cm"/>
     <constant name="DRcrystalgapl" value="0.05*cm"/>
     <constant name="DRcrystalgapmat" value="DRcrystalgapl/2"/>
-    <constant name="DRcrystalgapt" value="0.2*mm"/>
-    <constant name="DRcrystalhont" value="0.7*DRcrystalgapt/2"/>   <!-- should always be a fraction of DRcrystalgapt/2 -->
+    <constant name="DRcrystalgapt" value="1.0*cm"/>
+    <constant name="DRcrystalhont" value="0.1*DRcrystalgapt/2"/>   <!-- should always be a fraction of DRcrystalgapt/2 -->
     <constant name="ecaltol" value="0.05*cm"/>
     <constant name="l1r" value="1"/>
     <constant name="l2r" value="1"/>
@@ -32,7 +32,7 @@
 
 
 
-    <constant name="DRcrystalNsize1" value="5"/>    <!-- should be 45 -->
+    <constant name="DRcrystalNsize1" value="2"/>    <!-- should be 45 -->
     <constant name="DRcrystalNsize2" value="2"/>    <!-- should be 45 -->
 
 <!-- gap between ecal and hcal  -->
