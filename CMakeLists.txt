@@ -24,6 +24,9 @@ find_package(k4RecCalorimeter)
 find_package(EDM4HEP REQUIRED) # implicit: Podio
 message(STATUS ${k4RecCalorimeter_DIR})
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+
 SET(CMAKE_INSTALL_LIBDIR lib)
 
 IF(NOT TARGET DD4hep::DDCore)

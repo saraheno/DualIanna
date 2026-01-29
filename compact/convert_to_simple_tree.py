@@ -12,7 +12,8 @@ parser.add_argument('-o','--output', type=str, default = 'edm4hep_plots.root')
 
 
 args = parser.parse_args()
-reader = root_io.Reader(args.file)
+#reader = root_io.Reader(args.file)
+reader = root_io.RNTupleReader(args.file)
 
 tf = ROOT.TFile(args.output, 'RECREATE')
 
@@ -111,7 +112,8 @@ for name in treeNames:
         trees[name] = buildWaveformTree(name,'Digis',entry.getInterval(),entry.amplitude_size())
 
 # reset reader
-reader = root_io.Reader(args.file)
+#reader = root_io.Reader(args.file)
+reader = root_io.RNTupleReader(args.file)
 
 for event in reader.get("events"):
     

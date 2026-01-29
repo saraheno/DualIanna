@@ -1,7 +1,7 @@
 from Gaudi.Configuration import *
-from Configurables import ApplicationMgr
+from k4FWCore import ApplicationMgr
 
-from Configurables import k4DataSvc
+#from Configurables import k4DataSvc
 
 # follow example to add custom args from: https://github.com/key4hep/K4FWCore
 from k4FWCore.parseArgs import parser
@@ -13,25 +13,32 @@ parser.add_argument('-d', '--algo', type=str, choices = ['simsipm', 'sasha'], de
 my_opts = parser.parse_known_args()
 print(my_opts)
 
-dataservice = k4DataSvc("EventDataSvc", input=my_opts[0].file)
-
-
-from Configurables import PodioInput
-
-## The collections refer to collections we want to read
-# under the events tree in the root file (I think)
-podioinput = PodioInput("PodioInput",
-    collections = [
-        "MCParticles",
+from k4FWCore import IOSvc
+io_svc = IOSvc("IOSvc") # or just IOSvc() as "IOSvc" name is used by default
+io_svc.Input=my_opts[0].file
+io_svc.CollectionNames = [        "MCParticles",
         "DRCNoSegment",
         "EventHeader",
         "DRCNoSegmentContributions"
-    ],
-    OutputLevel = DEBUG
-)
+        ]
+
+io_svc.Output=my_opts[0].output
+io_svc.OutputType="RNTuple"
+io_svc.outputCommands=["drop *",
+                              "keep CalvisionSiPMDigiWaveform",
+                               "keep CalvisionSiPMScintWaveform",
+                               "keep CalvisionSiPMCherenWaveform",
+                               "keep killedCherenPhotons",
+                               "keep killedScintPhotons",
+                               "keep passedScintPhotons",
+                               "keep passedCherenPhotons",
+                               "keep EventHeader"]
+
+from Configurables import PodioInput
 
 from Configurables import DualCrysSiPMAlgo
 from Configurables import DualCrysSiPMSim
+
 ## This algorithm will read a filtered list of photons and produce
 ## digi outputs
 
@@ -71,18 +78,6 @@ digi.outputCalCollection = "DigitizedCaloHits"
 digi.OutputLevel = DEBUG
 
 
-## What we plan on writing (in this case everything) 
-from Configurables import PodioOutput
-podiooutput = PodioOutput("PodioOutput", filename = my_opts[0].output, OutputLevel = DEBUG)
-podiooutput.outputCommands = ["drop *",
-                              "keep CalvisionSiPMDigiWaveform",
-                               "keep CalvisionSiPMScintWaveform",
-                               "keep CalvisionSiPMCherenWaveform",
-                               "keep killedCherenPhotons",
-                               "keep killedScintPhotons",
-                               "keep passedScintPhotons",
-                               "keep passedCherenPhotons",
-                               "keep EventHeader"]
 
 
 
@@ -102,13 +97,10 @@ rndmGenSvc = RndmGenSvc("RndmGenSvc",
 
 ApplicationMgr(
     TopAlg = [
-        podioinput,
         digi,
         algo,
-        podiooutput
     ],
     EvtSel = 'NONE',
     EvtMax = 200,
-    ExtSvc = [rndmEngine,rndmGenSvc,dataservice]
+    ExtSvc = [rndmEngine,rndmGenSvc,io_svc]
 )
- 

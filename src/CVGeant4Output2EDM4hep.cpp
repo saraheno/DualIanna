@@ -37,6 +37,9 @@
 #include <podio/podioVersion.h>
 #include <podio/Frame.h>
 #include <podio/FrameCategories.h>
+
+#include <podio/RNTupleWriter.h>
+
 #if PODIO_BUILD_VERSION >= PODIO_VERSION(0, 99, 0)
 #include <podio/ROOTWriter.h>
 #else
@@ -74,7 +77,8 @@ namespace dd4hep {
       using trackermap_t = std::map< std::string, edm4hep::SimTrackerHitCollection >;
       using calorimeterpair_t = std::pair< edm4hep::SimCalorimeterHitCollection, edm4hep::CaloHitContributionCollection >;
       using calorimetermap_t = std::map< std::string, calorimeterpair_t >;
-      std::unique_ptr<writer_t>     m_file  { };
+      //std::unique_ptr<writer_t>     m_file  { };
+      std::unique_ptr<podio::RNTupleWriter>     m_file  { };
       std::atomic_size_t            m_fileUseCount { 0 };
       podio::Frame                  m_frame { };
       edm4hep::MCParticleCollection m_particles { };
@@ -285,7 +289,8 @@ void CVGeant4Output2EDM4hep::beginRun(const G4Run* run)  {
   }
   // Create the file only when it has not yet beeen created in another thread
   if ( !fname.empty() && !m_file )   {
-    m_file = std::make_unique<podio::ROOTWriter>(fname);
+    //m_file = std::make_unique<podio::ROOTWriter>(fname);
+    m_file = std::make_unique<podio::RNTupleWriter>(fname);
     if ( !m_file )   {
       fatal("+++ Failed to open output file: %s", fname.c_str());
     }
