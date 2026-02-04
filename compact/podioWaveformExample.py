@@ -100,6 +100,7 @@ for i in range(0, len(events)):
     if args.w:
         for tree in waveTrees:
             waveforms[tree] = {}
+            waveforms[tree]['max'] = (0, None)
             collection = frame.get(tree)
             for s in range(0, collection.size()):
                 if (s%50) == 0:
@@ -121,14 +122,16 @@ for i in range(0, len(events)):
                 wv.waveform = wave
                 wv.ix = ix
                 wv.iy = iy
-                wv.amax = amax
+                wv.layer = layerid
+                wv.amax = wave[amax]
 
                 waveforms[tree][key] = wv
                 waveforms[tree]['xs'] = np.array(range(0,bincount))*sampling
-                waveforms[tree]['max'] = (amax, wv)
 
-                if (amax > waveforms[tree]['max'][0]) and args.layer == layerid:
-                    waveforms[tree]['max'] = (amax, wv)
+
+                if (wave[amax] > waveforms[tree]['max'][0]) and args.layer == layerid:
+                    #print(f'bigger waveform {wave[amax]} > {waveforms[tree]["max"][0]}')
+                    waveforms[tree]['max'] = (wave[amax], wv)
 
 
 
@@ -169,7 +172,8 @@ for i in range(0, len(events)):
     if args.w:
         scintWave = waveforms['CalvisionSiPMScintWaveform']['max'][1]
         cherenWave = waveforms['CalvisionSiPMCherenWaveform']['max'][1]
-
+        print(f'{scintWave.ix}, {scintWave.iy}, {scintWave.layer}')
+        print(f'{cherenWave.ix}, {cherenWave.iy}, {cherenWave.layer}')
         fig,(ax0,ax1,ax2) = plt.subplots(3,1,layout="constrained")
         ax0.plot(waveforms['CalvisionSiPMScintWaveform']['xs'], scintWave.waveform)
         ax0.set_xlabel('ns',loc='right')
